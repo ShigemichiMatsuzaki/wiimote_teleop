@@ -27,7 +27,7 @@ generate_messages(
 
 catkin_package(
 #  INCLUDE_DIRS include
-  LIBRARIES simple_teleop_twist
+  LIBRARIES ${PROJECT_NAME}
   CATKIN_DEPENDS roscpp rospy std_msgs sensor_msgs
   DEPENDS system_lib
 )
@@ -52,7 +52,7 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(${PROJECT_NAME}_node 
-	       src/simple_teleop_twist_node.cpp
+	       src/${PROJECT_NAME}_node.cpp
 	       src/robot_driver.cpp)
 
 ## Add cmake target dependencies of the executable

@@ -9,6 +9,7 @@
 #include "include/robot_driver.h"
 // ROS header files
 #include <ros/ros.h>
+#include <ros/console.h>
 #include <sensor_msgs/Joy.h>
 #include <geometry_msgs/Twist.h>
 // Standard 
@@ -41,9 +42,9 @@ RobotDriver::RobotDriver(){
     twist_pub.publish(twist);
 
     // Initialize the speed of rotation
-    ros::param::set("rotateSpeed", 0.1);
+    ros::param::set("rotateSpeed", 1);
     // Initialize the speed of linear movement
-    ros::param::set("linearSpeed", 0.05);
+    ros::param::set("linearSpeed", 0.5);
 }
 
 /**
@@ -91,6 +92,22 @@ RobotDriver::setMoveVector(const sensor_msgs::Joy& msg){
     } else if(msg.buttons[B]) { // Maybe not necessary
       twist.linear.x = 0;
       twist.angular.z = 0;
+    } else if(msg.buttons[PLUS]) {
+      if(rotateSpeed <= 1 && linearSpeed <= 0.5) {
+	rotateSpeed *= 1.1;
+	linearSpeed *= 1.1;
+	ros::param::set("rotateSpeed", rotateSpeed);
+	ros::param::set("linearSpeed", linearSpeed);
+      }
+      ROS_INFO("linearSpeed : %f", linearSpeed);
+      ROS_INFO("rotateSpeed : %f", rotateSpeed);
+    } else if(msg.buttons[MINUS]) {
+      rotateSpeed *= 0.9;
+      linearSpeed *= 0.9;
+      ros::param::set("rotateSpeed", rotateSpeed);
+      ros::param::set("linearSpeed", linearSpeed);
+      ROS_INFO("linearSpeed : %f", linearSpeed);
+      ROS_INFO("rotateSpeed : %f", rotateSpeed);
     }
 
     return twist;
