@@ -84,42 +84,45 @@ RobotDriver::setMoveVector(const sensor_msgs::Joy& msg){
     bool  isPressed;
     ros::param::get("rotateSpeed", rotateSpeed);
     ros::param::get("linearSpeed", linearSpeed);
-    ros::param::get("isPressed", isPressed);
+    ros::param::get("isPressed",   isPressed);
     
-    if(!isPressed) {
-      ros::param::set("isPressed", true);
-      if(msg.buttons[UP]) {
-	twist.linear.x = linearSpeed;
-      } else if(msg.buttons[DOWN]) {
-	twist.linear.x = -linearSpeed; 
-      } else if(msg.buttons[LEFT]) {
-	twist.angular.z = rotateSpeed;
-      } else if(msg.buttons[RIGHT]) {
-	twist.angular.z = -rotateSpeed;
-      } else if(msg.buttons[B]) { // Maybe not necessary
-	twist.linear.x = 0;
-	twist.angular.z = 0;
-      } else if(msg.buttons[PLUS]) {
-	if(rotateSpeed <= 1 && linearSpeed <= 0.5) {
-	  rotateSpeed *= 1.1;
-	  linearSpeed *= 1.1;
-	  ros::param::set("rotateSpeed", rotateSpeed);
-	  ros::param::set("linearSpeed", linearSpeed);
-	}
-	ROS_INFO("linearSpeed : %f", linearSpeed);
-	ROS_INFO("rotateSpeed : %f", rotateSpeed);
-      } else if(msg.buttons[MINUS]) {
-	rotateSpeed *= 0.9;
-	linearSpeed *= 0.9;
+    if(msg.buttons[UP]) {
+      twist.linear.x = linearSpeed;
+    } else if(msg.buttons[DOWN]) {
+      twist.linear.x = -linearSpeed; 
+    } else if(msg.buttons[LEFT]) {
+      twist.angular.z = rotateSpeed;
+    } else if(msg.buttons[RIGHT]) {
+      twist.angular.z = -rotateSpeed;
+    } else if(msg.buttons[B]) { // Maybe not necessary
+      twist.linear.x = 0;
+      twist.angular.z = 0;
+    } 
+      
+    if(msg.buttons[PLUS] && !isPressed) {
+      if(rotateSpeed <= 1 && linearSpeed <= 0.5) {
+	rotateSpeed *= 1.1;
+	linearSpeed *= 1.1;
 	ros::param::set("rotateSpeed", rotateSpeed);
 	ros::param::set("linearSpeed", linearSpeed);
-	ROS_INFO("linearSpeed : %f", linearSpeed);
-	ROS_INFO("rotateSpeed : %f", rotateSpeed);
-      } else {
-	ros::param::set("isPressed", false);
       }
-      return twist;
+      ROS_INFO("linearSpeed : %f", linearSpeed);
+      ROS_INFO("rotateSpeed : %f", rotateSpeed);
+      ros::param::set("isPressed", true);
+      
+    } else if(msg.buttons[MINUS] && !isPressed) {
+      rotateSpeed *= 0.9;
+      linearSpeed *= 0.9;
+      ros::param::set("rotateSpeed", rotateSpeed);
+      ros::param::set("linearSpeed", linearSpeed);
+      ROS_INFO("linearSpeed : %f", linearSpeed);
+      ROS_INFO("rotateSpeed : %f", rotateSpeed);
+      ros::param::set("isPressed", true);
+    } else if(msg.buttons[PLUS] && msg.buttons[MINUS]) {
+      ros::param::set("isPressed", false);
     }
+
+    return twist;
 }
 
 geometry_msgs::Twist
