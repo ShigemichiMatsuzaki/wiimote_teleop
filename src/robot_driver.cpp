@@ -118,7 +118,7 @@ RobotDriver::setMoveVector(const sensor_msgs::Joy& msg){
       ROS_INFO("linearSpeed : %f", linearSpeed);
       ROS_INFO("rotateSpeed : %f", rotateSpeed);
       ros::param::set("isPressed", true);
-    } else if(msg.buttons[PLUS] && msg.buttons[MINUS]) {
+    } else if(!msg.buttons[PLUS] && !msg.buttons[MINUS]) {
       ros::param::set("isPressed", false);
     }
 
