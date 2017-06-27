@@ -33,8 +33,8 @@
  *  - Initialize the twist message and publish it
  */
 RobotDriver::RobotDriver(){
-    twist_pub = nh.advertise<geometry_msgs::Twist>("output", 1);
-    msg_sub = nh.subscribe("input", 1, &RobotDriver::callback, this);
+    twist_pub = nh.advertise<geometry_msgs::Twist>("/cmd_vel", 1);
+    msg_sub = nh.subscribe("/joy", 1, &RobotDriver::callback, this);
 
     geometry_msgs::Twist twist = setMoveVector(); // Initialize the vector
 
