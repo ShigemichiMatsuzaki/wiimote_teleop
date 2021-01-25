@@ -6,7 +6,7 @@
 
 int main(int argc, char** argv){
   // Initialize ROS
-  ros::init(argc, argv, "simple_teleop_twist");
+  ros::init(argc, argv, "wiimote_teleop");
 
   // Generate an instance of RobotDriver
   RobotDriver robotDriver;
