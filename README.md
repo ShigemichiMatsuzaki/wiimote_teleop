@@ -3,7 +3,7 @@ Convert Joy message subscribed by wiimote to Twist message
 
 ## Docker
 
-Coming soon...
+[wiimote-ros-docker](https://github.com/ShigemichiMatsuzaki/wiimote-ros-docker)
 
 ## How to launch
 1. Connect a wiimote to your PC.
@@ -12,6 +12,10 @@ Coming soon...
 ```
  $ rosrun simple_teleop_twist simple_teleop_twist_node
 ```
+
+## Usage
+
+![Usage](./figures/wiimote_usage.png)
 
 ## Messages
 ### Subscribed
