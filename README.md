@@ -8,9 +8,9 @@ Convert Joy message subscribed by wiimote to Twist message
 ## How to launch
 1. Connect a wiimote to your PC.
 
-1. Run **simple_teleop_twist**
+1. Run **wiimote_teleop_node**
 ```
- $ rosrun simple_teleop_twist simple_teleop_twist_node
+ $ rosrun wiimote_teleop wiimote_teleop_node
 ```
 
 ## Usage
