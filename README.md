@@ -1,26 +1,25 @@
 # About
 Convert Joy message subscribed by wiimote to Twist message
 
-Why did I make this kind of package?
+## Docker
 
-Because teleop_twist_joy package was useless.
+Coming soon...
 
-# How to launch
-1. Connect wiimote to your PC.
-See [here](https://aisl-serv6.aisl.ics.tut.ac.jp:20443/ShigemichiMatsuzaki/research_notes/blob/master/notes/wiimote.md)
+## How to launch
+1. Connect a wiimote to your PC.
 
 1. Run **simple_teleop_twist**
 ```
  $ rosrun simple_teleop_twist simple_teleop_twist_node
 ```
 
-# Messages
-## Subscribed
-/joy
+## Messages
+### Subscribed
+/joy ([sensor_msgs/Joy](http://docs.ros.org/en/melodic/api/sensor_msgs/html/msg/Joy.html))
 
 Topic from a controller
 
-## Published
-/cmd_vel
+### Published
+/cmd_vel ([sensor_msgs/Twist](http://docs.ros.org/en/melodic/api/sensor_msgs/html/msg/Twist.html))
 
-Topic for mercury_converter, and eventually for mercury itself.
+Control command sent to a robot
